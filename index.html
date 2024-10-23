@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio of Sahith Chaganti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Resetting basic elements for a clean slate */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #0f0f0f;
+      color: #f2f2f2;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      padding: 20px 0;
+      background-color: #181818;
+      border-bottom: 2px solid #333;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 600;
+      color: #f4c542;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #999;
+    }
+
+    main {
+      width: 100%;
+      padding: 2rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #f4c542;
+      border-left: 5px solid #f4c542;
+      padding-left: 15px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .content-section {
+      width: 100%;
+      margin-bottom: 2.5rem;
+    }
+
+    p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      color: #ccc;
+    }
+
+    .center-image {
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .cloud-image {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #f4c542;
+      transition: transform 0.3s ease;
+    }
+
+    .cloud-image:hover {
+      transform: scale(1.05);
+    }
+
+    .reviews,
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .review-card,
+    .project-card {
+      background-color: #222;
+      padding: 2rem;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .review-card:hover,
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .review-card p,
+    .project-card p {
+      font-size: 1rem;
+      color: #bbb;
+      margin-bottom: 0.5rem;
+    }
+
+    .review-card .rating span {
+      color: #f4c542;
+      font-size: 1.5rem;
+    }
+
+    footer {
+      width: 100%;
+      background-color: #181818;
+      padding: 1rem;
+      text-align: center;
+      border-top: 2px solid #333;
+    }
+
+    footer p {
+      color: #999;
+    }
+
+    footer a {
+      color: #f4c542;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s ease;
+    }
+
+    footer a:hover {
+      color: #f4d942;
+    }
+
+    /* Responsive Layout */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      main {
+        padding: 1.5rem;
+      }
+
+      .cloud-image {
+        width: 180px;
+        height: 180px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .cloud-image {
+        width: 150px;
+        height: 150px;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>sahith.in</h1>
+    <p>Portfolio of Sahith Chaganti</p>
+  </header>
+
+  <main>
+    <div class="center-image">
+      <img class="cloud-image" src="" alt="Profile Image">
+    </div>
+
+    <section class="content-section">
+      <h2>About Me</h2>
+      <p>Hi, I'm Sahith Chaganti, a 4th-year B.Tech student passionate about cloud computing, software engineering, and AI-driven solutions. I love exploring innovative ways to implement cloud-native solutions and sharpening my technical skills.</p>
+    </section>
+
+    <section class="content-section reviews">
+      <h2>Reviews</h2>
+      <div class="review-card">
+        <div class="rating">
+          <span>⭐⭐⭐⭐⭐</span>
+        </div>
+        <p>"Sahith's dedication to his projects is impressive. His understanding of cloud technologies is superb!"</p>
+        <p>- Professor John, Computer Science Department</p>
+      </div>
+      <div class="review-card">
+        <div class="rating">
+          <span>⭐⭐⭐⭐⭐</span>
+        </div>
+        <p>"Working with Sahith on our final-year project was a great experience. His problem-solving skills are top-notch."</p>
+        <p>- Jane Doe, Teammate</p>
+      </div>
+    </section>
+
+    <section class="content-section projects">
+      <h2>Cloud Native Projects</h2>
+      <div class="project-card">
+        <h3>AI-Powered Learning Platform</h3>
+        <p>Developed a cloud-native platform using AI to enhance student learning, leveraging AWS for scalability and performance.</p>
+      </div>
+      <div class="project-card">
+        <h3>Serverless Architecture for Job Matching</h3>
+        <p>Designed a serverless architecture using AWS Lambda for automatic job matching based on machine learning algorithms.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Sahith Chaganti | <a href="mailto:chsks2004@gmail.com">Contact Me</a></p>
+  </footer>
+</body>
+
+</html>
