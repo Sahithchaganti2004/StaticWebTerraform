@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from GitHub repository
-                git url: 'https://github.com/Sahithchaganti2004/StaticWebTerraform', branch: 'main'   // Adjust to match repo URL and branch
+                git url: 'https://github.com/Sahithchaganti2004/StaticWebTerraform.git', branch: 'main'   // Adjust to match repo URL and branch
             }
         }
 
