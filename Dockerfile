@@ -5,7 +5,7 @@ FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy your custom NGINX configuration (optional)
-COPY nginx.conf /etc/nginx/conf.d/
+#COPY nginx.conf /etc/nginx/conf.d/
 
 # Copy the static site files into the NGINX web directory
 COPY ./index.html /usr/share/nginx/html
