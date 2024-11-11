@@ -10,7 +10,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm                               // Checks out the code from the linked Git repository
+                // Checkout the code from GitHub
+                git url: 'https://github.com/Sahithchaganti2004/StaticWebTerraform', branch: 'main'    // Change to your repository URL and branch
             }
         }
 
@@ -75,3 +76,4 @@ pipeline {
         }
     }
 }
+
