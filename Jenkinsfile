@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_REPOSITORY = 'chsks2004/myapp'             // Docker Hub repository in the format 'username/repo'
+        DOCKERHUB_REPOSITORY = 'chsks2004/myapp'            // Docker Hub repository in the format 'username/repo'
         IMAGE_TAG = "${env.BUILD_ID}"                        // Unique image tag using Jenkins build ID
     }
 
@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("${DOCKERHUB_REPOSITORY}:${IMAGE_TAG}")   // Build Docker image for Docker Hub
+                    docker.build("${DOCKERHUB_REPOSITORY}:${IMAGE_TAG}")  // Build Docker image for Docker Hub
                 }
             }
         }
@@ -25,7 +25,7 @@ pipeline {
         stage('Push Image to Docker Hub') {
             steps {
                 script {
-                    // Login to Docker Hub
+                    // Login to Docker Hub using Jenkins credentials
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKER_HUB_PASSWORD', usernameVariable: 'DOCKER_HUB_USERNAME')]) {
                         sh "echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin"
                     }
@@ -38,9 +38,10 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 script {
-                    withAWS(region: "us-east-1", credentials: 'aws-credentials') {   // Adjust AWS region and credentials if needed
+                    withAWS(region: "us-east-1", credentials: 'aws-credentials') {  // Adjust AWS region and credentials if needed
                         // Initialize Terraform with backend S3 bucket and key (adjust values as needed)
                         sh "terraform init -backend-config='bucket=myapp-terraform-state' -backend-config='key=terraform.tfstate'"
+
                         // Apply Terraform configurations with the Docker image tag variable
                         sh "terraform apply -auto-approve -var 'image_tag=${IMAGE_TAG}'"
                     }
@@ -69,7 +70,7 @@ pipeline {
 
     post {
         always {
-            cleanWs()                                    // Clean up workspace after completion
+            cleanWs()  // Clean up workspace after completion
         }
         success {
             echo "Deployment succeeded!"
