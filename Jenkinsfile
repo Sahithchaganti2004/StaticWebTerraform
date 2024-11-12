@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'us-east-1'                          // Change if deploying to a different AWS region
+        AWS_REGION = 'us-east-1'                          // AWS region for ECR and ECS
         ECR_REPOSITORY = 'myapp-repo'                     // Amazon ECR repository name
         IMAGE_TAG = "${env.BUILD_ID}"                     // Unique image tag using Jenkins build ID
     }
@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from GitHub repository
-                git url: 'https://github.com/Sahithchaganti2004/StaticWebTerraform.git', branch: 'main'   // Adjust to match repo URL and branch
+                git url: 'https://github.com/Sahithchaganti2004/StaticWebTerraform.git', branch: 'main'
             }
         }
 
@@ -26,10 +26,18 @@ pipeline {
         stage('Push Image to ECR') {
             steps {
                 script {
-                    docker.withRegistry("https://${AWS_REGION}.dkr.ecr.${AWS_REGION}.amazonaws.com", 'aws-ecr-credentials') {
-                        sh "docker tag myapp:${IMAGE_TAG} ${AWS_REGION}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${IMAGE_TAG}"  // Tag Docker image
-                        sh "docker push ${AWS_REGION}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${IMAGE_TAG}"                   // Push image to ECR
+                    // Log in to ECR
+                    withCredentials([usernamePassword(credentialsId: 'aws-ecr-credentials', passwordVariable: 'AWS_SECRET_KEY', usernameVariable: 'AWS_ACCESS_KEY')]) {
+                        sh '''
+                            aws configure set aws_access_key_id $AWS_ACCESS_KEY
+                            aws configure set aws_secret_access_key $AWS_SECRET_KEY
+                            aws configure set default.region ${AWS_REGION}
+                        '''
+                        sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_REGION}.dkr.ecr.${AWS_REGION}.amazonaws.com"
                     }
+                    // Tag and push Docker image
+                    sh "docker tag myapp:${IMAGE_TAG} ${AWS_REGION}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${IMAGE_TAG}"
+                    sh "docker push ${AWS_REGION}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${IMAGE_TAG}"
                 }
             }
         }
