@@ -65,12 +65,11 @@ resource "aws_s3_bucket_website_configuration" "website" {
 
   depends_on = [ aws_s3_bucket_acl.example ]
 }
-# ECS Task Definition (example of using image_tag variable)
 resource "aws_ecs_task_definition" "myapp" {
   family                   = "myapp-task-definition"
   container_definitions    = jsonencode([{
     name      = "myapp-container"
-    image     = "chsks2004/myapp:${var.image_tag}"  # Use the image_tag variable here
+    image     = "chsks2004/myapp:${var.app_version}"
     essential = true
   }])
 }
